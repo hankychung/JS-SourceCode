@@ -61,13 +61,9 @@ hello.myApply(per, ['hello world', 'others!'])
 Function.prototype.myBind = function() {
     let obj = arguments[0],
     args = [...arguments].slice(1)
-    if (obj._bindFn != undefined) {
-        console.error('reserved word for myBind has been TAKEN!')
-        return
-    }    
-    obj._bindFn = this 
+    let bindFn = this 
     return function() {
-        obj._bindFn.apply(obj, args.concat(...arguments))
+        bindFn.apply(obj, args.concat(...arguments))
     } 
 }
 
@@ -82,7 +78,7 @@ let per = {
 }
 
 let myBind = hello.myBind(per, 'reserved')
-myBind('other words!', 'also other words')
+myBind('other words!', 'other words')
 myBind('hello words!', 'latest words!!')
 ```
 
