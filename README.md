@@ -67,13 +67,13 @@ Function.prototype.myBind = function() {
     }    
     obj._bindFn = this 
     return function() {
-        obj._bindFn(...args)
+        obj._bindFn.apply(obj, args.concat(...arguments))
     } 
 }
 
-function hello(ser, o) {
+function hello(ser, o, l) {
     console.log(`my name is %c${this.name}%c and age is %c${this.age}`, 'background:yellow', '', 'background:yellow')
-    console.log(`secret words is %c${ser}%c and other words is %c${o}`, 'background:yellow', '', 'background:yellow')
+    console.log(`secret words is %c${ser}%c and other words is %c${o}%c and last words is %c${l}`, 'background:yellow', '', 'background:yellow', '', 'background:yellow')
 }
 
 let per = {
@@ -81,7 +81,9 @@ let per = {
     age: 18
 }
 
-let myBind = hello.myBind(per, 'hello world', 'others for bind!!')
-myBind()
-myBind()
+let myBind = hello.myBind(per, 'reserved')
+myBind('other words!', 'also other words')
+myBind('hello words!', 'latest words!!')
 ```
+
+> bind()的另一个最简单的用法（偏函数）是使一个函数拥有预设的初始参数。只要将这些参数（如果有的话）作为bind()的参数写在this后面。当绑定函数被调用时，这些参数会被插入到目标函数的参数列表的开始位置，传递给绑定函数的参数会跟在它们后面。
