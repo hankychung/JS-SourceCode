@@ -1,3 +1,16 @@
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+**Table of Contents**  *generated with [DocToc](https://github.com/thlorenz/doctoc)*
+
+- [call/apply/bind](#callapplybind)
+  - [call的实现](#call%E7%9A%84%E5%AE%9E%E7%8E%B0)
+  - [apply的实现](#apply%E7%9A%84%E5%AE%9E%E7%8E%B0)
+  - [bind的实现](#bind%E7%9A%84%E5%AE%9E%E7%8E%B0)
+- [reduce](#reduce)
+  - [usage](#usage)
+
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
+
 ## call/apply/bind
 
 ### call的实现
