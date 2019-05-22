@@ -1,0 +1,19 @@
+{
+  "name": "js-theory",
+  "version": "1.0.0",
+  "description": "js functions and theories",
+  "main": "index.js",
+  "scripts": {
+    "doc": "doctoc README.md"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hankychung/JS-theory.git"
+  },
+  "author": "Han",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/hankychung/JS-theory/issues"
+  },
+  "homepage": "https://github.com/hankychung/JS-theory#readme"
+}
