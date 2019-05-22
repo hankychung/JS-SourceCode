@@ -1,6 +1,4 @@
-# JS-SourceCode
-
-## 手敲call/apply/bind
+## call/apply/bind
 
 ### call的实现
 ```
@@ -93,3 +91,20 @@ let bindIns = new myBind()
 ```
 
 > bind()的另一个最简单的用法（偏函数）是使一个函数拥有预设的初始参数。只要将这些参数（如果有的话）作为bind()的参数写在this后面。当绑定函数被调用时，这些参数会被插入到目标函数的参数列表的开始位置，传递给绑定函数的参数会跟在它们后面。
+
+## reduce
+### usage
+```
+arr.reduce(callback[, initialValue])
+```
+> reduce 第一个参数: `callback` 是核心，它对数组的每一项进行“叠加加工”，其最后一次返回值将作为 reduce 方法的最终返回值。 它包含 4 个参数：
+> 
+> ① `previousValue`　表示“上一次” callback 函数的返回值
+> 
+> ② `currentValue`　数组遍历中正在处理的元素
+> 
+> ③ `currentIndex`　可选，表示 currentValue 在数组中对应的索引。如果提供了 initialValue，则起始索引号为 0，否则为 1
+> 
+> ④ `array`　可选，调用 reduce() 的数组
+> 
+> reduce 第二个参数: `initialValue` 可选，作为第一次调用 callback 时的第一个参数。如果没有提供 initialValue，那么数组中的第一个元素将作为 callback 的第一个参数。
