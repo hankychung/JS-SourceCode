@@ -1,13 +1,15 @@
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
-**Table of Contents**  *generated with [DocToc](https://github.com/thlorenz/doctoc)*
 
 - [call/apply/bind](#callapplybind)
   - [call的实现](#call%E7%9A%84%E5%AE%9E%E7%8E%B0)
   - [apply的实现](#apply%E7%9A%84%E5%AE%9E%E7%8E%B0)
   - [bind的实现](#bind%E7%9A%84%E5%AE%9E%E7%8E%B0)
 - [reduce](#reduce)
+  - [description](#description)
   - [usage](#usage)
+    - [run Promise In Sequence](#run-promise-in-sequence)
+    - [pipe](#pipe)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
@@ -106,7 +108,7 @@ let bindIns = new myBind()
 > bind()的另一个最简单的用法（偏函数）是使一个函数拥有预设的初始参数。只要将这些参数（如果有的话）作为bind()的参数写在this后面。当绑定函数被调用时，这些参数会被插入到目标函数的参数列表的开始位置，传递给绑定函数的参数会跟在它们后面。
 
 ## reduce
-### usage
+### description
 ```
 arr.reduce(callback[, initialValue])
 ```
@@ -121,3 +123,39 @@ arr.reduce(callback[, initialValue])
 > ④ `array`　可选，调用 reduce() 的数组
 > 
 > reduce 第二个参数: `initialValue` 可选，作为第一次调用 callback 时的第一个参数。如果没有提供 initialValue，那么数组中的第一个元素将作为 callback 的第一个参数。
+
+### usage
+#### run Promise In Sequence
+
+
+#### pipe
+> reduce 的另外一个典型应用可以参考函数式方法 pipe 的实现：pipe(f, g, h) 是一个 curry 化函数，它返回一个新的函数，这个新的函数将会完成 (...args) => h(g(f(...args))) 的调用。即 pipe 方法返回的函数会接收一个参数，这个参数传递给 pipe 方法第一个参数，以供其调用。
+
+```
+function f1(v) {
+  console.log('running f1')
+  return `f1 generate: ${v}`
+}
+
+function f2(v) {
+  console.log('running f2')
+  return `f2 generate: ${v}`
+}
+
+function f3(v) {
+  console.log('running f3')
+  return `f3 generate: ${v}`
+}
+
+// function pipe(...fns) {
+//   return function (input) {
+//     return fns.reduce((pre, cur) => {
+//       return cur(pre)
+//     }, input)
+//   }
+// }
+
+const pipe = (...fns) => input => fns.reduce((pre, cur) => cur(pre), input)
+
+console.log(pipe(f1, f2, f3)('hello world'))
+```
