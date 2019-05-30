@@ -126,7 +126,39 @@ arr.reduce(callback[, initialValue])
 
 ### usage
 #### run Promise In Sequence
-
+```
+function fn1(res) {
+    console.log('get: ' + res)
+    return new Promise((res, rej) => {
+        setTimeout(() => {
+            res(1)
+        }, 1000);
+    })
+}
+function fn2(res) {
+    console.log('get: ' + res)
+    return new Promise((res, rej) => {
+        setTimeout(() => {
+            rej(2)
+        }, 3000);
+    })
+}
+function fn3(res) {
+    console.log('get: ' + res)
+    return new Promise((res, rej) => {
+        setTimeout(() => {
+            console.log('finished')
+            res(3)
+        }, 500);
+    })
+}
+let arr = [fn1, fn2, fn3]
+arr.reduce((pre, cur) => {
+    return pre.then(res => cur(res))
+}, Promise.resolve()).catch(e => {
+    console.log('catch err: ' + e)
+})
+```
 
 #### pipe
 > reduce 的另外一个典型应用可以参考函数式方法 pipe 的实现：pipe(f, g, h) 是一个 curry 化函数，它返回一个新的函数，这个新的函数将会完成 (...args) => h(g(f(...args))) 的调用。即 pipe 方法返回的函数会接收一个参数，这个参数传递给 pipe 方法第一个参数，以供其调用。
