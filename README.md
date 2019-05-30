@@ -131,7 +131,7 @@ function fn1(res) {
     console.log('get: ' + res)
     return new Promise((res, rej) => {
         setTimeout(() => {
-            res(1)
+            res(11)
         }, 1000);
     })
 }
@@ -139,7 +139,7 @@ function fn2(res) {
     console.log('get: ' + res)
     return new Promise((res, rej) => {
         setTimeout(() => {
-            rej(2)
+            rej(22)
         }, 3000);
     })
 }
@@ -148,14 +148,17 @@ function fn3(res) {
     return new Promise((res, rej) => {
         setTimeout(() => {
             console.log('finished')
-            res(3)
+            res(33)
         }, 500);
     })
 }
-let arr = [fn1, fn2, fn3]
-arr.reduce((pre, cur) => {
-    return pre.then(res => cur(res))
-}, Promise.resolve()).catch(e => {
+
+const promiseInSequence = (arr, init) => arr.reduce(
+    (pre, cur) => pre.then(cur),
+    Promise.resolve(init)
+)
+
+promiseInSequence([fn1, fn2, fn3], 'start').catch(e => {
     console.log('catch err: ' + e)
 })
 ```
