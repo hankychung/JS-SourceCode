@@ -194,3 +194,50 @@ const pipe = (...fns) => input => fns.reduce((pre, cur) => cur(pre), input)
 
 console.log(pipe(f1, f2, f3)('hello world'))
 ```
+
+### 实现reduce
+```
+function checkType(e) {
+  return Object.prototype.toString
+    .call(e)
+    .split(" ")[1]
+    .replace("]", "")
+    .toLowerCase();
+}
+
+Object.defineProperty(Array.prototype, "reduce", {
+  value: function(callback, initialValue) {
+    if (checkType(callback) !== "function")
+      throw new TypeError(`${checkType(callback)} is not a function`);
+
+    var value,
+      arr = this,
+      len = arr.length,
+      idx = 0;
+
+    if (initialValue !== undefined) {
+      value = initialValue;
+    } else {
+      while (idx < len && !(idx in arr)) {
+        idx++;
+      }
+      if (idx >= len) {
+        throw new TypeError(
+          "Reduce of empty array with no initial value"
+        );
+      }
+
+      value = arr[idx++];
+    }
+
+    while (idx < len) {
+      if (idx in arr) {
+        value = callback(value, arr[idx], idx, arr);
+        idx++;
+      }
+    }
+
+    return value;
+  }
+});
+```
