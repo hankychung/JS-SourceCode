@@ -23,7 +23,7 @@
 
 ```
 function _new(constructor, ...args) {
-  let obj = Object.create(Per.prototype);
+  let obj = Object.create(constructor.prototype);
   let res = constructor.apply(obj, args);
   // 如果构造器有返回并且返回的是对象/数组/方法，则返回这个对象/数组/方法
   if (res && (typeof res === "object" || typeof res === "function")) {
